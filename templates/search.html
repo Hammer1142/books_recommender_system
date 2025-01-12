@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Search Engine</title>
+</head>
+<body>
+    <h1>Simple Search Engine</h1>
+    <input type="text" id="searchBox" placeholder="Search...">
+    <button onclick="performSearch()">Search</button>
+    <ul id="results"></ul>
+    
+    <script>
+        async function performSearch() {
+            const query = document.getElementById('searchBox').value;
+            const response = await fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query })
+            });
+            const results = await response.json();
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = '';
+            results.forEach(result => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${result.title}: ${result.content}`;
+                resultsElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookify</title>
+</head>
+<body>
+    <h1>Add Books To Liked Books</h1>
+    <form method="POST">
+        <input type="text" name="user_input" placeholder="Geben Sie etwas ein">
+        <button type="submit">Add Book</button>
+    </form>
+    <form method="GET" action="{{ url_for('book_list') }}">
+        <button type="submit">Show All Books</button>
+    </form>
+    <form method="GET" action="{{ url_for('home') }}">
+        <button type="submit">Finish</button>
+    </form>
+    <h2>Currently Liked Books:</h2>
+    <ul>
+        {% for book in liked_books %}
+            <li>{{ book }}</li>
+        {% endfor %}
+    </ul>
+    <h1>Suchbare Tabelle</h1>
+    <form method="POST">
+        <input type="text" name="search" placeholder="Suche nach Titel" value="{{ search_query }}">
+        <button type="submit">Suchen</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author/s</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in filtered_df %}
+                <tr>
+                    <td>{{ book['index'] }}</td>
+                    <td>{{ book['Title'] }}</td>
+                    <td>{{ book['authors'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

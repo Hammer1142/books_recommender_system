@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ausgewählte Bücher</title>
+</head>
+<body>
+    <h1>Ausgewählte Bücher:</h1>
+    <ul>
+        {% for book in liked_books %}
+        <li>{{ book }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

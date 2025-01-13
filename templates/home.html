@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Welcome To The Home Page!</h1>
+    <!--<h1>Welcome To The Home Page!</h1>
     <h2>Liked Books:</h2>
     <ul>
         {% for book in liked_books %}
@@ -24,7 +25,31 @@
         {% for rec in popular_recs %}
             <li>{{ rec['Title']}}</li>
         {% endfor %}
-    </ul>
+    </ul> -->
     <a href="{{ url_for('index') }}">Go Back</a>
+    <div class="container">
+        <h1>Top Recommendations</h1>
+        <div class="book-row">
+            {%for rec in top_recs%}
+            <div class="book-item" 
+                onclick='showDetails("{{ rec['Title'] | escape }}", "{{ rec['authors'] | escape }}", "{{ rec['description'] | escape}}")'>
+                <img src="{{ rec['image'] }}" alt="{{ rec['Title'] }}">
+                <p>{{ rec['Title'] }}</p>
+            </div>
+
+            {%endfor%}
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2 id="book-title">Buch Titel</h2>
+            <p id="book-author">Autor: Autorname</p>
+            <p id="book-description">Beschreibung: Dies ist die Beschreibung des Buches.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
